@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Software Is Solved: Be More Ambitious (Ben Davis, visual summary)</title>
+<meta name="description" content="An unofficial visual summary of Ben Davis's talk on agentic coding: what is solved, what is not, the verification loop, and concrete behavior changes.">
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#ffffff; --ink:#1d1d1b; --muted:#6b6a65; --line:#e3dfd6;
+  --accent:#c4552d; --accent-soft:#f6e3da;
+  --blue:#e4edf8; --blue-ink:#28507d;
+  --green:#e3f1e6; --green-ink:#2e6b3f;
+  --yellow:#fbf1d2; --yellow-ink:#7a5b12;
+  --grey:#efede8;
+  --serif: "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans: -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  --mono: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#151513; --paper:#1e1e1b; --ink:#ecebe6; --muted:#a19f97; --line:#34332e;
+    --accent:#e2784f; --accent-soft:#3a251c;
+    --blue:#1d2a3a; --blue-ink:#9cc0ea;
+    --green:#1c2d21; --green-ink:#9fd3ad;
+    --yellow:#33291a; --yellow-ink:#e9c97a;
+    --grey:#262622;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* hero */
+header.hero{padding:88px 0 56px;border-bottom:1px solid var(--line)}
+.kicker{font:600 13px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font:600 clamp(40px,6.5vw,76px)/1.02 var(--serif);letter-spacing:-.02em;margin:18px 0 22px}
+.lede{font:400 clamp(20px,2.4vw,26px)/1.4 var(--serif);color:var(--muted);max-width:760px;margin:0}
+.lede strong{color:var(--ink);font-weight:600}
+.meta{margin-top:28px;font-size:14px;color:var(--muted)}
+nav.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px}
+nav.toc a{font-size:14px;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--paper);padding:6px 12px;border-radius:999px}
+nav.toc a:hover{border-color:var(--accent);color:var(--accent)}
+
+/* sections */
+section{padding:72px 0;border-bottom:1px solid var(--line)}
+.num{font:600 13px/1 var(--mono);color:var(--accent);letter-spacing:.06em}
+h2{font:600 clamp(28px,3.6vw,40px)/1.15 var(--serif);letter-spacing:-.01em;margin:10px 0 14px}
+.sub{color:var(--muted);max-width:720px;margin:0 0 36px;font-size:18px}
+h3{font:600 17px/1.3 var(--sans);margin:0 0 6px}
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:860px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 22px 20px}
+.card p{margin:0;color:var(--muted);font-size:16px}
+.card.blue{background:var(--blue);border-color:transparent}.card.blue h3{color:var(--blue-ink)}
+.card.green{background:var(--green);border-color:transparent}.card.green h3{color:var(--green-ink)}
+.card.yellow{background:var(--yellow);border-color:transparent}.card.yellow h3{color:var(--yellow-ink)}
+.card.key{outline:2px solid var(--accent);outline-offset:-2px}
+.card .tag{display:inline-block;font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+
+/* claim chart */
+.split{display:grid;grid-template-columns:1fr 1.1fr;gap:28px;align-items:stretch}
+@media (max-width:860px){.split{grid-template-columns:1fr}}
+.stack{display:grid;gap:16px;align-content:start}
+.chart{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px}
+.chart svg{width:100%;height:auto;display:block}
+.chart .cap{font-size:13px;color:var(--muted);margin-top:8px}
+.quote{font:italic 400 22px/1.45 var(--serif);border-left:3px solid var(--accent);padding:4px 0 4px 18px;margin:0}
+
+/* shift */
+.shift{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center;margin-bottom:24px}
+.shift .arrow{font:400 34px/1 var(--serif);color:var(--accent)}
+@media (max-width:700px){.shift{grid-template-columns:1fr}.shift .arrow{transform:rotate(90deg);justify-self:center}}
+.callout{background:var(--accent-soft);border-radius:14px;padding:22px 24px;font:500 19px/1.5 var(--serif)}
+
+/* loop */
+.loop{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:28px;padding-bottom:70px}
+.loop .card{position:relative;z-index:1}
+.loop .card:not(:last-child)::after{content:"→";position:absolute;right:-22px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:20px}
+.loop .step{font:600 12px/1 var(--mono);color:var(--green-ink);margin-bottom:10px;display:block}
+.back{position:absolute;left:10%;right:10%;bottom:10px;height:44px;border:2px dashed var(--accent);border-top:none;border-radius:0 0 18px 18px}
+.back span{position:absolute;left:50%;bottom:-13px;transform:translateX(-50%);background:var(--bg);padding:0 12px;font:600 14px/1.4 var(--sans);color:var(--accent);white-space:nowrap}
+@media (max-width:900px){.loop{grid-template-columns:1fr;gap:14px;padding-bottom:20px}.loop .card:not(:last-child)::after{content:"↓";right:50%;top:auto;bottom:-20px;transform:none}.back{display:none}.loop-note{display:block!important}}
+.loop-note{display:none;color:var(--accent);font-weight:600;margin-top:10px}
+
+/* deep dives */
+.dive{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:32px}
+.dive + .dive{margin-top:24px}
+.dive h3.big{font:600 24px/1.25 var(--serif);margin:6px 0 10px}
+.dive .lead{font:400 20px/1.5 var(--serif);margin:0 0 24px}
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch;margin-bottom:22px}
+.flow .lbl{align-self:center;font:600 12px/1.2 var(--mono);color:var(--muted);text-align:center}
+.flow .lbl b{display:block;font-size:20px;color:var(--accent)}
+@media (max-width:760px){.flow{grid-template-columns:1fr}.flow .lbl b{transform:rotate(90deg);display:inline-block}}
+.mini{font-size:15px;color:var(--muted);margin:18px 0 10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+@media (max-width:600px){.cmp{grid-template-columns:1fr}}
+.cmp .card p{color:var(--ink)}
+.bad h3{color:var(--muted)} .good{outline:2px solid var(--accent);outline-offset:-2px}.good h3{color:var(--accent)}
+
+/* bets */
+.bets{display:grid;gap:12px}
+.bet{display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:start;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.bet .n{font:600 26px/1 var(--serif);color:var(--accent)}
+.bet p{margin:0}
+.bet small{display:block;color:var(--muted);font-size:14px;margin-top:2px}
+
+/* table */
+.tbl{width:100%;border-collapse:separate;border-spacing:0;background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:15.5px}
+.tbl th{text-align:left;font:600 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:16px 18px;border-bottom:1px solid var(--line);background:var(--grey)}
+.tbl td{padding:16px 18px;vertical-align:top;border-bottom:1px solid var(--line)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td:first-child{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--accent);text-decoration-thickness:1.5px;width:22%}
+.tbl td:nth-child(2){font-weight:600;width:33%}
+.tbl td:nth-child(3){color:var(--ink)}
+.tbl td:nth-child(3)::before{content:"Try: ";font:600 12px/1 var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+@media (max-width:760px){
+  .tbl thead{display:none}.tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%!important}
+  .tbl tr{border-bottom:1px solid var(--line);padding:8px 0}.tbl td{border:none;padding:6px 18px}
+}
+
+/* process */
+.making{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+@media (max-width:860px){.making{grid-template-columns:1fr}}
+.board{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px}
+.board img{width:100%;height:auto;display:block;border-radius:8px}
+.board figcaption{font-size:13px;color:var(--muted);margin-top:10px}
+.timeline{list-style:none;margin:0;padding:0;counter-reset:t;position:relative}
+.timeline::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.timeline li{counter-increment:t;position:relative;padding:0 0 22px 52px}
+.timeline li::before{content:counter(t);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--paper);border:2px solid var(--accent);color:var(--accent);font:600 14px/28px var(--mono);text-align:center}
+.timeline b{display:block;font-size:16px;margin-bottom:2px}
+.timeline span{color:var(--muted);font-size:15.5px}
+.lesson{margin-top:28px;background:var(--accent-soft);border-radius:14px;padding:20px 24px;font:500 18px/1.5 var(--serif)}
+
+/* close */
+.closer{padding:96px 0 72px;text-align:center}
+.closer p.big{font:600 clamp(30px,4.4vw,52px)/1.15 var(--serif);margin:0 auto;max-width:820px}
+.closer p.big em{font-style:normal;color:var(--accent)}
+.closer p.small{color:var(--muted);max-width:640px;margin:20px auto 0}
+footer{padding:28px 0 56px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+footer p{margin:6px 0}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Visual summary · Agentic coding</div>
+    <h1>Software is solved.<br>Now be more ambitious.</h1>
+    <p class="lede"><strong>Writing code is solved.</strong> Ambition, taste and verification are not, and that is where your effort should go.</p>
+    <p class="meta">Based on a talk by Ben Davis, recorded the day Fable 5.2 was released · <a href="https://www.youtube.com/watch?v=qfZhblrmSxM">Watch the original video</a></p>
+    <nav class="toc" aria-label="Sections">
+      <a href="#claim">1 · The claim</a><a href="#shift">2 · The shift</a><a href="#unsolved">3 · Not solved</a>
+      <a href="#method">4 · The method</a><a href="#proof">5 · Proof</a><a href="#bets">6 · Bets</a><a href="#actions">7 · What to do</a><a href="#process">8 · How it was made</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="claim"><div class="wrap">
+  <div class="num">01</div>
+  <h2>The claim: code-writing is done</h2>
+  <p class="sub">For any well-specified task, getting from A to B, agents now write better code than people. The job moves from typing code to deciding and checking.</p>
+  <div class="split">
+    <div class="stack">
+      <div class="card blue"><h3>Clear A→B tasks belong to agents</h3><p>If the goal is well defined, the agent writes better code than a human would.</p></div>
+      <div class="card blue"><h3>Hand-coding is now the wrong default</h3><p>Ben is blunt: if you still hand-write code or read every line, you are "flat wrong."</p></div>
+      <blockquote class="quote">"Things are going to continue to change."</blockquote>
+    </div>
+    <figure class="chart" style="margin:0">
+      <svg viewBox="0 0 520 300" role="img" aria-label="Sketch: capability rises linearly, then steepens after Sonnet 4.5">
+        <line x1="50" y1="20" x2="50" y2="250" stroke="currentColor" stroke-opacity=".35" stroke-width="1.5"/>
+        <line x1="50" y1="250" x2="500" y2="250" stroke="currentColor" stroke-opacity=".35" stroke-width="1.5"/>
+        <g stroke="currentColor" stroke-opacity=".08"><line x1="50" y1="190" x2="500" y2="190"/><line x1="50" y1="130" x2="500" y2="130"/><line x1="50" y1="70" x2="500" y2="70"/></g>
+        <polyline points="50,240 350,190" fill="none" stroke="var(--muted)" stroke-width="3" stroke-dasharray="2 0"/>
+        <polyline points="350,190 380,168 410,140 440,108 470,72 495,44" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="350" y1="190" x2="500" y2="165" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 5"/>
+        <circle cx="350" cy="190" r="6" fill="var(--accent)"/>
+        <text x="338" y="215" text-anchor="end" font-size="14" fill="var(--accent)" font-family="var(--sans)" font-weight="600">Sonnet 4.5: slope steepens</text>
+        <text x="500" y="160" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--sans)">old trend</text>
+        <text x="500" y="272" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--sans)">time →</text>
+        <text x="40" y="20" text-anchor="end" font-size="12" fill="var(--muted)" font-family="var(--sans)" transform="rotate(-90 40 20)">capability</text>
+      </svg>
+      <figcaption class="cap">Sketch of the METR chart Ben discusses (internal Anthropic models): roughly linear, then a clear kink upward. His read: "not exponential yet," but it could flip. Illustrative shape only, not plotted data.</figcaption>
+    </figure>
+  </div>
+</div></section>
+
+<section id="shift"><div class="wrap">
+  <div class="num">02</div>
+  <h2>The shift, in under a year</h2>
+  <p class="sub">The tools changed fast. Most people's ambitions didn't.</p>
+  <div class="shift">
+    <div class="card"><span class="tag">Start of 2026</span><h3>Cursor sidebar, one thread</h3><p>Babysitting a single agent, reading all the code it wrote.</p></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="card blue"><span class="tag">Now</span><h3>~20 agents, 5 machines</h3><p>Running in the background on big, ambitious projects that actually work.</p></div>
+  </div>
+  <div class="callout">The real barrier is psychological. You quietly cap what you ask for, based on what the models could do last year. If all you build is CRUD apps, it will feel bleak. Throw them at bigger problems and you will be surprised.</div>
+</div></section>
+
+<section id="unsolved"><div class="wrap">
+  <div class="num">03</div>
+  <h2>What is not solved</h2>
+  <p class="sub">Capability keeps climbing. Judgment does not. This gap is where humans still win.</p>
+  <div class="grid g2">
+    <div class="card"><h3>Decisions nobody can check</h3><p>Ask for a UI and it still looks like generic LLM output, even with Fable 5.2. Better, but not there.</p></div>
+    <div class="card"><h3>Product judgment</h3><p>Models do not make better product decisions than people. Care and taste show clearly in what you ship.</p></div>
+    <div class="card"><h3>Taste and direction</h3><p>A product refined through many careful prompts beats "Opus, make me a chat app" by a wide margin.</p></div>
+    <div class="card"><h3>Hands-off is a trap</h3><p>Stop watching the output and quality rots. You still put in real effort, just at a higher level.</p></div>
+  </div>
+</div></section>
+
+<section id="method"><div class="wrap">
+  <div class="num">04</div>
+  <h2>The method: boil the ocean, loop until good</h2>
+  <p class="sub">Ben's workflow is a loop. Each pass raises quality, and each failure becomes a permanent fix.</p>
+  <div class="loop">
+    <div class="card green"><span class="step">STEP 1</span><h3>Pick an ocean</h3><p>The project you shelved as too big. Any recurring annoyance is a target.</p></div>
+    <div class="card green key"><span class="step">STEP 2 · KEY</span><h3>Build the harness</h3><p>Give agents a way to test their own work: a fake API, a CLI, screenshots. <a href="#harness">Explained ↓</a></p></div>
+    <div class="card green"><span class="step">STEP 3</span><h3>Loop the builder</h3><p>The agent runs for hours or days, checking every change against the harness.</p></div>
+    <div class="card green"><span class="step">STEP 4</span><h3>Cross-model review</h3><p>A GPT model builds; Fable 5.2 reviews until it says "good to go."</p></div>
+    <div class="card green"><span class="step">STEP 5</span><h3>Phone check</h3><p>Preview link, screenshots, quick diff skim for scope creep. Then ship.</p></div>
+    <div class="back" aria-hidden="true"><span>Something broke? Stop, name it, engineer it out. <a href="#skill">Why ↓</a></span></div>
+  </div>
+  <p class="loop-note">↺ Something broke? Stop, name it, engineer it out, and go around again.</p>
+
+  <div class="dive" id="harness" style="margin-top:40px">
+    <div class="num">04a</div>
+    <h3 class="big">The harness, explained</h3>
+    <p class="lead">A harness is a safe practice copy of the real thing. The agent can test its own work against it thousands of times, with no human watching.</p>
+    <div class="flow">
+      <div class="card"><h3>The spec</h3><p>YouTube's public API docs: what you can request, and what comes back.</p></div>
+      <div class="lbl"><b>→</b>agent copies</div>
+      <div class="card yellow"><h3>The fake API</h3><p>A small pretend YouTube server built from the spec, returning believable made-up data. A bot keeps it in sync when the spec changes.</p></div>
+      <div class="lbl"><b>→</b>tests against</div>
+      <div class="card"><h3>The real app</h3><p>The agent builds against the fake, runs it, sees what breaks, fixes it. Repeat.</p></div>
+    </div>
+    <p><strong>Why not use the real YouTube?</strong> Real APIs need keys and logins a cloud sandbox doesn't have. They also have quotas, change under you, and can't be reset. A fake is free, instant and always in a known state, so the agent can loop for hours on its own. The FPS game uses the same idea: a CLI plus screenshots let the agent move the character, jump around the world and see whether a change worked, instead of struggling to click through a 3D game.</p>
+    <div class="mini">Things you already know that work the same way</div>
+    <div class="grid g4">
+      <div class="card yellow"><h3>Stripe test mode</h3><p>Card 4242 4242 4242 4242 "pays" with no real money.</p></div>
+      <div class="card yellow"><h3>Flight simulator</h3><p>Pilots crash a hundred times before a real plane is at risk.</p></div>
+      <div class="card yellow"><h3>Crash-test dummy</h3><p>A stand-in, so a car can be tested safely.</p></div>
+      <div class="card yellow"><h3>Staging server</h3><p>A copy of your site where a bad deploy hurts nobody.</p></div>
+    </div>
+  </div>
+
+  <div class="dive" id="skill">
+    <div class="num">04b</div>
+    <h3 class="big">The #1 skill in 2026</h3>
+    <p class="lead">Ben quotes Mario, creator of the Pi coding agent: the most important skill is still telling your agents, <em>"No, not like this."</em> In practice that means three moves.</p>
+    <div class="grid g3">
+      <div class="card green"><span class="step" style="font:600 12px/1 var(--mono);color:var(--green-ink)">1</span><h3>Notice</h3><p>Actually look at the output. Your domain knowledge is what spots what's off.</p></div>
+      <div class="card green"><span class="step" style="font:600 12px/1 var(--mono);color:var(--green-ink)">2</span><h3>Reject</h3><p>Say no, plainly and specifically. Don't settle for good enough.</p></div>
+      <div class="card green key"><span class="step" style="font:600 12px/1 var(--mono);color:var(--green-ink)">3</span><h3>Engineer it out</h3><p>Add a test, rule or tool so the same mistake can't come back.</p></div>
+    </div>
+    <p style="margin-top:22px"><strong>Why it's #1:</strong> agents now write the code, but they still can't tell good from good enough. The person who keeps saying no, and turns each no into a permanent guardrail, gets quality that compounds.</p>
+    <div class="cmp">
+      <div class="card bad"><h3>Weak correction</h3><p>"This is wrong, try again."</p><p style="color:var(--muted);margin-top:8px">The agent guesses, and the same bug returns next week.</p></div>
+      <div class="card good"><h3>Strong correction</h3><p>"The button overlaps the title on mobile. Fix it, then add a screenshot check at 375px."</p><p style="color:var(--muted);margin-top:8px">Fixed now, and it can't come back.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="proof"><div class="wrap">
+  <div class="num">05</div>
+  <h2>Proof it already works</h2>
+  <p class="sub">Examples Ben cites, each built mostly by agents running in loops.</p>
+  <div class="grid g3">
+    <div class="card yellow"><h3>TypeScript Go compiler → Rust</h3><p>Theo ported it in about two weeks, with Opus running in a loop.</p></div>
+    <div class="card yellow"><h3>T3 Code</h3><p>About two core developers. Ben rates it above the Codex and Claude desktop apps overall.</p></div>
+    <div class="card yellow"><h3>Cat-patrol robot</h3><p>An orchestrator picks the destination, a driving model handles the moment-to-moment steering. Agents designed the circuits and wiring.</p></div>
+    <div class="card yellow"><h3>3D-printer bot</h3><p>An agent controls the printer and texts progress screenshots mid-print.</p></div>
+    <div class="card yellow"><h3>Custom dictation app</h3><p>Replaced a dictation tool he was annoyed with; inference runs locally. Built by Opus 5.5 and GPT-6 Astra in a loop.</p></div>
+    <div class="card yellow"><h3>A long-wanted FPS game</h3><p>No hand-built physics engine or 3D renderer, plus a CLI test harness for the agents.</p></div>
+  </div>
+</div></section>
+
+<section id="bets"><div class="wrap">
+  <div class="num">06</div>
+  <h2>Ben's bets</h2>
+  <p class="sub">Predictions, stated as his opinion. He himself calls long-range forecasting "a fool's game."</p>
+  <div class="bets">
+    <div class="bet"><div class="n">1</div><p>Google Search, Gmail, Drive and Android get displaced within about three years.<small>He expects YouTube and Google Cloud to survive.</small></p></div>
+    <div class="bet"><div class="n">2</div><p>A team of three to six people builds a mobile OS better than Android.</p></div>
+    <div class="bet"><div class="n">3</div><p>One obsessed developer running hundreds of agents makes a better game than a big-budget studio.</p></div>
+    <div class="bet"><div class="n">4</div><p>Confident about the next year. Beyond that, no idea.<small>If models ever out-decide humans on product, "it's GG."</small></p></div>
+  </div>
+</div></section>
+
+<section id="actions"><div class="wrap">
+  <div class="num">07</div>
+  <h2>What to do differently</h2>
+  <p class="sub">The behavior changes behind Ben's talk, each with something concrete to try. The examples are the summarizer's, built from the workflow he describes.</p>
+  <table class="tbl">
+    <thead><tr><th>Stop</th><th>Start: what it means</th><th>Try this</th></tr></thead>
+    <tbody>
+      <tr><td>Hand-coding; reading every line</td><td>Agents write the code. Your job is checking the change stays inside what you asked for.</td><td>Ask for one feature, then read only the list of changed files. Anything outside the ask? Reject it.</td></tr>
+      <tr><td>Asking for what feels safe</td><td>Pick the project you shelved as too big. Agents make it feasible now.</td><td>List the three projects you've postponed for years. Start the biggest as a weekend spike.</td></tr>
+      <tr><td>Babysitting one thread in the IDE</td><td>Hand off whole tasks; let several agents run in the background at once.</td><td>Queue three independent tasks before dinner (a bug fix, a test suite, a doc). Review all three in the morning.</td></tr>
+      <tr><td>Letting agents test by clicking around</td><td>Give agents a fast, scriptable way to check their own work.</td><td>Before building on an outside API, have an agent build a fake of it from the docs. Add a CLI command that prints the app's state.</td></tr>
+      <tr><td>Letting one model grade its own work</td><td>A different model reviews; the loop continues until it approves.</td><td>Builder: a GPT model. Reviewer: Fable 5.2 with your checklist. Nothing merges until the reviewer says pass.</td></tr>
+      <tr><td>Patching a bad output and moving on</td><td>Every failure becomes a permanent guardrail.</td><td>Agent broke login twice? Add a login test that runs on every change, plus one line in the agent's instructions file.</td></tr>
+      <tr><td>Putting up with tools you hate</td><td>If a tool annoys you daily, have agents build your own version.</td><td>Ben did this with his dictation app. Name your three most annoying tools and rebuild one.</td></tr>
+      <tr><td>Accepting the model's UI and product calls</td><td>Models still lack taste. You define what good looks like, up front.</td><td>Before any design work, give the agent two or three screenshots you like and one paragraph on the feel you want.</td></tr>
+      <tr><td>Judging AI by one-shot demos</td><td>A one-prompt demo is the floor. Quality comes from many rounds of expert correction on one product.</td><td>Plan for 300 prompts, not one. Each round fixes one specific thing: "spacing too tight," "error message unclear."</td></tr>
+      <tr><td>Checking work only at your desk</td><td>Make every result reviewable in two minutes, from your phone.</td><td>Have each agent task end with a preview link, before/after screenshots and a short diff summary sent to your phone.</td></tr>
+      <tr><td>Betting on long-range forecasts</td><td>Guessing the future is a fool's game; act on what works today.</td><td>Plan on a 12-month horizon. Re-test your assumptions every time a new model ships.</td></tr>
+    </tbody>
+  </table>
+</div></section>
+
+<section id="process"><div class="wrap">
+  <div class="num">08</div>
+  <h2>How this summary was made: a whiteboard first</h2>
+  <p class="sub">Before this page existed, Ben's ideas were laid out on a shared whiteboard, built with Claude from the video transcript. Each confusing spot became a question, and each question changed the board. This page is the cleaned-up result.</p>
+  <div class="making">
+    <figure class="board">
+      <a href="board.svg" target="_blank" rel="noopener"><img src="board.svg" alt="Map of the whiteboard: sections 1 to 7 laid out as blocks, the five-step loop with its dashed return arrow, the 4a and 4b explainers, proof and bets, and the stop-start table"></a>
+      <figcaption>The final whiteboard, redrawn from its layout. Grey bars stand for running text. <a href="board.svg" target="_blank" rel="noopener">Open full size</a></figcaption>
+    </figure>
+    <ol class="timeline">
+      <li><b>Map the argument</b><span>Transcript → six sections: claim, shift, limits, method loop, proof, bets. The loop is drawn as a loop, because it is one.</span></li>
+      <li><b>"What is a fake API?"</b><span>Step 2 was too terse, so it grew its own explainer (4a): spec → fake → real app, plus everyday analogies.</span></li>
+      <li><b>"The #1 skill is too cryptic"</b><span>A one-line quote became a three-move pattern (4b) with a weak and a strong example correction.</span></li>
+      <li><b>"Distill the behavior changes"</b><span>The whole talk compressed into a stop → start table (7).</span></li>
+      <li><b>"Still too cryptic. Make it actionable."</b><span>A third column, "Try this," gave every row something concrete to do tomorrow.</span></li>
+      <li><b>Organize</b><span>The explainers moved under the step they explain, and everything was renumbered into one top-to-bottom read.</span></li>
+      <li><b>Publish</b><span>The board turned into this page: same order and content, built for reading rather than panning around.</span></li>
+    </ol>
+  </div>
+  <p class="lesson"><strong>The meta-lesson:</strong> this is Ben's loop applied to understanding instead of code. Draft fast, notice where it's unclear, say "not like this," and fix the structure, not just the wording.</p>
+</div></section>
+</main>
+
+<div class="closer"><div class="wrap">
+  <p class="big">Effort and caring are the edge, <em>for now.</em> Go bigger.</p>
+  <p class="small">The bottlenecks that used to stop people are gone. What's left is how much you care and how hard you push on something you understand.</p>
+</div></div>
+
+<footer><div class="wrap">
+  <p>Unofficial summary of <a href="https://www.youtube.com/watch?v=qfZhblrmSxM">Ben Davis's video</a>, written from its auto-generated transcript. Some product and model names may be mistranscribed. Not affiliated with Ben Davis or any company mentioned.</p>
+</div></footer>
+</body>
+</html>
