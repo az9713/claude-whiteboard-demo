@@ -9,7 +9,7 @@ sections = [
     (1120, 240, 520, 480, "3 · What is NOT solved"), (0, 800, 1640, 340, "4 · The method: loop until good"),
     (0, 1220, 800, 810, "4a · Build the harness, explained"), (840, 1220, 800, 810, "4b · The #1 skill, explained"),
     (0, 2110, 1080, 424, "5 · Proof it already works"), (1120, 2110, 520, 424, "6 · Ben's bets"),
-    (0, 2614, 1640, 800, "7 · Behavior changes: stop → start → try this"),
+    (0, 2614, 1640, None, "7 · Behavior changes: stop → start → try this"),
 ]
 # x, y, w, h, colour, label, outlined
 blocks = [
@@ -44,16 +44,56 @@ blocks = [
     (1144, 2334, 472, 76, "white", "Solo dev beats AAA studio", 0),
     (1144, 2434, 472, 76, "white", "Horizon: ~1 year", 0),
 ]
-lines = [  # free text as grey bars (x, y, width)
-    (24, 1250, 700), (24, 1290, 520), (24, 1606, 740), (24, 1634, 600), (24, 1700, 560), (24, 1962, 700),
-    (864, 1250, 720), (864, 1290, 420), (864, 1606, 740), (864, 1634, 640), (864, 1846, 680), (32, 1084, 900),
+texts = [  # (x, y, wrap width, font size, bold, text)
+    (32, 1076, 1560, 18, 0, "#1 skill in 2026: spot bad agent output, say \"no, not like this\", then engineer the cause out (see 4b)."),
+    (24, 1244, 752, 23, 0, "A harness is a safe practice copy of the real thing. The agent can test its own work against it, thousands of times, with no human watching."),
+    (24, 1598, 752, 17, 0, "Why not just use the real YouTube? Real APIs have quotas, keys and rate limits, change under you, and can't be reset. A fake is free, instant, and always in the same known state, so the agent can loop for hours alone."),
+    (24, 1694, 752, 21, 1, "Things you already know that work the same way"),
+    (24, 1954, 752, 17, 0, "The FPS game is the same idea: a CLI plus screenshots lets the agent 'see' and play its own game, so it can tell whether a change worked."),
+    (864, 1244, 752, 23, 0, "Judge what the agent made, reject what's wrong, then fix the cause so it never comes back."),
+    (864, 1598, 752, 17, 0, "Why it's #1: agents now write the code, but they still can't tell good from good-enough. The person who keeps saying no, and turns each no into a permanent guardrail, gets quality that compounds."),
+    (864, 1838, 752, 15, 0, "Source: Mario (creator of the Pi coding agent), quoted by Ben. It is the dashed loop arrow in section 4."),
 ]
+
+def wrap(text, width, fs):
+    n = max(8, int(width / (fs * 0.52)))
+    out, cur = [], ""
+    for w in text.split():
+        if cur and len(cur) + 1 + len(w) > n:
+            out.append(cur); cur = w
+        else:
+            cur = (cur + " " + w).strip()
+    if cur: out.append(cur)
+    return out
+
+table = [
+    ("Hand-coding; reading every line", "Agents write the code. Your job is checking the change stays inside what you asked for.", "Ask for one feature, then read only the list of changed files. Anything outside the ask? Reject it."),
+    ("Asking for what feels safe", "Pick the project you shelved as too big. Agents make it feasible now.", "List the three projects you've postponed for years. Start the biggest as a weekend spike."),
+    ("Babysitting one thread in the IDE", "Hand off whole tasks; let several agents run in the background at once.", "Queue three independent tasks before dinner (a bug fix, a test suite, a doc). Review all three in the morning."),
+    ("Letting agents test by clicking around", "Give agents a fast, scriptable way to check their own work.", "Before building on an outside API, have an agent build a fake of it from the docs. Add a CLI command that prints the app's state."),
+    ("Letting one model grade its own work", "A different model reviews; the loop continues until it approves.", "Builder: a GPT model. Reviewer: Fable 5.2 with your checklist. Nothing merges until the reviewer says pass."),
+    ("Patching a bad output and moving on", "Every failure becomes a permanent guardrail.", "Agent broke login twice? Add a login test that runs on every change, plus one line in the agent's instructions file."),
+    ("Putting up with tools you hate", "If a tool annoys you daily, have agents build your own version.", "Ben did this with his dictation app. Name your three most annoying tools and rebuild one."),
+    ("Accepting the model's UI and product calls", "Models still lack taste. You define what good looks like, up front.", "Before any design work, give the agent two or three screenshots you like and one paragraph on the feel you want."),
+    ("Judging AI by one-shot demos", "A one-prompt demo is the floor. Quality comes from many rounds of expert correction on one product.", "Plan for 300 prompts, not one. Each round fixes one specific thing: \"spacing too tight,\" \"error message unclear.\""),
+    ("Checking work only at your desk", "Make every result reviewable in two minutes, from your phone.", "Have each agent task end with a preview link, before/after screenshots and a short diff summary sent to your phone."),
+    ("Betting on long-range forecasts", "Guessing the future is a fool's game; act on what works today.", "Plan on a 12-month horizon. Re-test your assumptions every time a new model ships."),
+]
+TFS, LH = 17, 23
+cw = [300, 480, 812]
+row_lines = [[wrap(c, cw[j] - 36, TFS) for j, c in enumerate(r)] for r in table]
+row_h = [max(len(l) for l in r) * LH + 26 for r in row_lines]
+head_h = 56
+table_h = head_h + sum(row_h)
+sec7_h = table_h + 48
+pill_y = 2614 + sec7_h + 60
 arrows = [((584 + 236, 352), (584 + 236, 416))]
 arrows += [((296 + i * 328, 910), (360 + i * 328, 910)) for i in range(4)]
 arrows += [((224, 1484), (300, 1484)), ((500, 1484), (576, 1484))]
 arrows += [((1072, 1484), (1136, 1484)), ((1344, 1484), (1408, 1484))]
 
-W, H = 1700, 3640
+W = 1700
+H = pill_y + 96 + 60 + 30
 o = [f"<svg xmlns='http://www.w3.org/2000/svg' viewBox='-30 -30 {W} {H}' font-family='-apple-system,Segoe UI,Helvetica,Arial,sans-serif' role='img' aria-label='Map of the whiteboard used to build this summary'>",
      "<defs><marker id='ah' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#555'/></marker>",
      f"<marker id='ahr' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='{ACC}'/></marker></defs>",
@@ -61,6 +101,7 @@ o = [f"<svg xmlns='http://www.w3.org/2000/svg' viewBox='-30 -30 {W} {H}' font-fa
      "<text x='0' y='52' font-size='52' font-weight='700' fill='#1d1d1b'>Software is solved. Now be more ambitious.</text>",
      "<text x='0' y='112' font-size='28' fill='#6b6a65'>Writing code is solved. Ambition, taste, verification are not.</text>"]
 for x, y, w, h, t in sections:
+    h = h or sec7_h
     o.append(f"<rect x='{x}' y='{y}' width='{w}' height='{h}' rx='14' fill='none' stroke='#d6d2c8' stroke-width='2'/>")
     o.append(f"<text x='{x + 4}' y='{y - 12}' font-size='24' font-weight='700' fill='#3a3a36'>{html.escape(t)}</text>")
 for x, y, w, h, c, label, key in blocks:
@@ -68,8 +109,9 @@ for x, y, w, h, c, label, key in blocks:
     o.append(f"<rect x='{x}' y='{y}' width='{w}' height='{h}' rx='12' fill='{FILL[c]}' {st}/>")
     fs = 22 if w > 180 else 19
     o.append(f"<text x='{x + w / 2}' y='{y + h / 2 + fs * 0.35}' text-anchor='middle' font-size='{fs}' font-weight='600' fill='#2b2b28'>{html.escape(label)}</text>")
-for x, y, w in lines:
-    o.append(f"<rect x='{x}' y='{y}' width='{w}' height='12' rx='6' fill='#e2ded5'/>")
+for x, y, w, fs, b, t in texts:
+    for k, ln in enumerate(wrap(t, w, fs)):
+        o.append(f"<text x='{x}' y='{y + fs + k * fs * 1.35:.0f}' font-size='{fs}' font-weight='{700 if b else 400}' fill='#3a3a36'>{html.escape(ln)}</text>")
 # capability chart
 o.append("<polyline points='48,490 48,660 488,660' fill='none' stroke='#555' stroke-width='3'/>")
 o.append(f"<polyline points='48,650 348,600 388,575 428,545 468,510 488,490' fill='none' stroke='{ACC}' stroke-width='6' stroke-linejoin='round'/>")
@@ -79,21 +121,28 @@ for (x1, y1), (x2, y2) in arrows:
 o.append(f"<polyline points='1476,980 1476,1030 164,1030 164,984' fill='none' stroke='{ACC}' stroke-width='4' stroke-dasharray='12 8' marker-end='url(#ahr)'/>")
 o.append(f"<text x='820' y='1060' text-anchor='middle' font-size='20' fill='{ACC}' font-weight='600'>Broke? Stop, name it, engineer it out</text>")
 # table
-tx, ty, cw = 24, 2638, [300, 480, 812]
-rows, rh = 12, 60
-o.append(f"<rect x='{tx}' y='{ty}' width='{sum(cw)}' height='{rows * rh}' rx='10' fill='#ffffff' stroke='#d6d2c8' stroke-width='2'/>")
-o.append(f"<rect x='{tx}' y='{ty}' width='{sum(cw)}' height='{rh}' rx='10' fill='#efede8'/>")
-for i in range(1, rows):
-    o.append(f"<line x1='{tx}' y1='{ty + i * rh}' x2='{tx + sum(cw)}' y2='{ty + i * rh}' stroke='#e3dfd6' stroke-width='2'/>")
+tx, ty = 24, 2638
+o.append(f"<rect x='{tx}' y='{ty}' width='{sum(cw)}' height='{table_h}' rx='10' fill='#ffffff' stroke='#d6d2c8' stroke-width='2'/>")
+o.append(f"<rect x='{tx + 1}' y='{ty + 1}' width='{sum(cw) - 2}' height='{head_h}' rx='10' fill='#efede8'/>")
 cx = tx
 for j, wd in enumerate(cw):
     if j:
-        o.append(f"<line x1='{cx}' y1='{ty}' x2='{cx}' y2='{ty + rows * rh}' stroke='#e3dfd6' stroke-width='2'/>")
-    o.append(f"<text x='{cx + 18}' y='{ty + 38}' font-size='22' font-weight='700' fill='#3a3a36'>{['Stop', 'Start: what it means', 'Try this'][j]}</text>")
-    for i in range(1, rows):
-        o.append(f"<rect x='{cx + 18}' y='{ty + i * rh + 24}' width='{wd * (0.55 + 0.3 * ((i * 7 + j * 3) % 5) / 4):.0f}' height='12' rx='6' fill='#e2ded5'/>")
+        o.append(f"<line x1='{cx}' y1='{ty}' x2='{cx}' y2='{ty + table_h}' stroke='#e3dfd6' stroke-width='2'/>")
+    o.append(f"<text x='{cx + 18}' y='{ty + 36}' font-size='20' font-weight='700' fill='#3a3a36'>{['Stop', 'Start: what it means', 'Try this'][j]}</text>")
     cx += wd
-o.append(f"<rect x='320' y='3480' width='1000' height='96' rx='48' fill='#f3f1ec' stroke='{ACC}' stroke-width='4'/>")
-o.append("<text x='820' y='3538' text-anchor='middle' font-size='30' font-weight='600' fill='#1d1d1b'>Effort + caring: the edge, for now. Go bigger.</text>")
+ry = ty + head_h
+for r, lines_ in enumerate(row_lines):
+    o.append(f"<line x1='{tx}' y1='{ry}' x2='{tx + sum(cw)}' y2='{ry}' stroke='#e3dfd6' stroke-width='2'/>")
+    cx = tx
+    for j, wd in enumerate(cw):
+        col = ['#8a877f', '#1d1d1b', '#2b2b28'][j]
+        wt = ['400', '600', '400'][j]
+        for k, ln in enumerate(lines_[j]):
+            deco = " text-decoration='line-through'" if j == 0 else ""
+            o.append(f"<text x='{cx + 18}' y='{ry + 30 + k * LH}' font-size='{TFS}' font-weight='{wt}' fill='{col}'{deco}>{html.escape(ln)}</text>")
+        cx += wd
+    ry += row_h[r]
+o.append(f"<rect x='320' y='{pill_y}' width='1000' height='96' rx='48' fill='#f3f1ec' stroke='{ACC}' stroke-width='4'/>")
+o.append(f"<text x='820' y='{pill_y + 58}' text-anchor='middle' font-size='30' font-weight='600' fill='#1d1d1b'>Effort + caring: the edge, for now. Go bigger.</text>")
 o.append("</svg>")
 open(sys.argv[1], "w").write("\n".join(o))

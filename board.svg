@@ -1,7 +1,7 @@
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='-30 -30 1700 3640' font-family='-apple-system,Segoe UI,Helvetica,Arial,sans-serif' role='img' aria-label='Map of the whiteboard used to build this summary'>
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='-30 -30 1700 3756' font-family='-apple-system,Segoe UI,Helvetica,Arial,sans-serif' role='img' aria-label='Map of the whiteboard used to build this summary'>
 <defs><marker id='ah' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#555'/></marker>
 <marker id='ahr' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#c4552d'/></marker></defs>
-<rect x='-30' y='-30' width='1700' height='3640' fill='#fbfaf7'/>
+<rect x='-30' y='-30' width='1700' height='3756' fill='#fbfaf7'/>
 <text x='0' y='52' font-size='52' font-weight='700' fill='#1d1d1b'>Software is solved. Now be more ambitious.</text>
 <text x='0' y='112' font-size='28' fill='#6b6a65'>Writing code is solved. Ambition, taste, verification are not.</text>
 <rect x='0' y='240' width='520' height='480' rx='14' fill='none' stroke='#d6d2c8' stroke-width='2'/>
@@ -20,7 +20,7 @@
 <text x='4' y='2098' font-size='24' font-weight='700' fill='#3a3a36'>5 · Proof it already works</text>
 <rect x='1120' y='2110' width='520' height='424' rx='14' fill='none' stroke='#d6d2c8' stroke-width='2'/>
 <text x='1124' y='2098' font-size='24' font-weight='700' fill='#3a3a36'>6 · Ben&#x27;s bets</text>
-<rect x='0' y='2614' width='1640' height='800' rx='14' fill='none' stroke='#d6d2c8' stroke-width='2'/>
+<rect x='0' y='2614' width='1640' height='896' rx='14' fill='none' stroke='#d6d2c8' stroke-width='2'/>
 <text x='4' y='2602' font-size='24' font-weight='700' fill='#3a3a36'>7 · Behavior changes: stop → start → try this</text>
 <rect x='24' y='264' width='472' height='76' rx='12' fill='#e4edf8' stroke='none'/>
 <text x='260.0' y='309.7' text-anchor='middle' font-size='22' font-weight='600' fill='#2b2b28'>Agents out-code humans on A→B tasks</text>
@@ -96,18 +96,23 @@
 <text x='1380.0' y='2379.7' text-anchor='middle' font-size='22' font-weight='600' fill='#2b2b28'>Solo dev beats AAA studio</text>
 <rect x='1144' y='2434' width='472' height='76' rx='12' fill='#f3f1ec' stroke='none'/>
 <text x='1380.0' y='2479.7' text-anchor='middle' font-size='22' font-weight='600' fill='#2b2b28'>Horizon: ~1 year</text>
-<rect x='24' y='1250' width='700' height='12' rx='6' fill='#e2ded5'/>
-<rect x='24' y='1290' width='520' height='12' rx='6' fill='#e2ded5'/>
-<rect x='24' y='1606' width='740' height='12' rx='6' fill='#e2ded5'/>
-<rect x='24' y='1634' width='600' height='12' rx='6' fill='#e2ded5'/>
-<rect x='24' y='1700' width='560' height='12' rx='6' fill='#e2ded5'/>
-<rect x='24' y='1962' width='700' height='12' rx='6' fill='#e2ded5'/>
-<rect x='864' y='1250' width='720' height='12' rx='6' fill='#e2ded5'/>
-<rect x='864' y='1290' width='420' height='12' rx='6' fill='#e2ded5'/>
-<rect x='864' y='1606' width='740' height='12' rx='6' fill='#e2ded5'/>
-<rect x='864' y='1634' width='640' height='12' rx='6' fill='#e2ded5'/>
-<rect x='864' y='1846' width='680' height='12' rx='6' fill='#e2ded5'/>
-<rect x='32' y='1084' width='900' height='12' rx='6' fill='#e2ded5'/>
+<text x='32' y='1094' font-size='18' font-weight='400' fill='#3a3a36'>#1 skill in 2026: spot bad agent output, say &quot;no, not like this&quot;, then engineer the cause out (see 4b).</text>
+<text x='24' y='1267' font-size='23' font-weight='400' fill='#3a3a36'>A harness is a safe practice copy of the real thing. The agent</text>
+<text x='24' y='1298' font-size='23' font-weight='400' fill='#3a3a36'>can test its own work against it, thousands of times, with no</text>
+<text x='24' y='1329' font-size='23' font-weight='400' fill='#3a3a36'>human watching.</text>
+<text x='24' y='1615' font-size='17' font-weight='400' fill='#3a3a36'>Why not just use the real YouTube? Real APIs have quotas, keys and rate limits,</text>
+<text x='24' y='1638' font-size='17' font-weight='400' fill='#3a3a36'>change under you, and can&#x27;t be reset. A fake is free, instant, and always in the same</text>
+<text x='24' y='1661' font-size='17' font-weight='400' fill='#3a3a36'>known state, so the agent can loop for hours alone.</text>
+<text x='24' y='1715' font-size='21' font-weight='700' fill='#3a3a36'>Things you already know that work the same way</text>
+<text x='24' y='1971' font-size='17' font-weight='400' fill='#3a3a36'>The FPS game is the same idea: a CLI plus screenshots lets the agent &#x27;see&#x27; and play</text>
+<text x='24' y='1994' font-size='17' font-weight='400' fill='#3a3a36'>its own game, so it can tell whether a change worked.</text>
+<text x='864' y='1267' font-size='23' font-weight='400' fill='#3a3a36'>Judge what the agent made, reject what&#x27;s wrong, then fix the</text>
+<text x='864' y='1298' font-size='23' font-weight='400' fill='#3a3a36'>cause so it never comes back.</text>
+<text x='864' y='1615' font-size='17' font-weight='400' fill='#3a3a36'>Why it&#x27;s #1: agents now write the code, but they still can&#x27;t tell good from</text>
+<text x='864' y='1638' font-size='17' font-weight='400' fill='#3a3a36'>good-enough. The person who keeps saying no, and turns each no into a permanent</text>
+<text x='864' y='1661' font-size='17' font-weight='400' fill='#3a3a36'>guardrail, gets quality that compounds.</text>
+<text x='864' y='1853' font-size='15' font-weight='400' fill='#3a3a36'>Source: Mario (creator of the Pi coding agent), quoted by Ben. It is the dashed loop arrow in</text>
+<text x='864' y='1873' font-size='15' font-weight='400' fill='#3a3a36'>section 4.</text>
 <polyline points='48,490 48,660 488,660' fill='none' stroke='#555' stroke-width='3'/>
 <polyline points='48,650 348,600 388,575 428,545 468,510 488,490' fill='none' stroke='#c4552d' stroke-width='6' stroke-linejoin='round'/>
 <line x1='820' y1='352' x2='818' y2='416' stroke='#555' stroke-width='3' marker-end='url(#ah)'/>
@@ -121,57 +126,86 @@
 <line x1='1344' y1='1484' x2='1406' y2='1484' stroke='#555' stroke-width='3' marker-end='url(#ah)'/>
 <polyline points='1476,980 1476,1030 164,1030 164,984' fill='none' stroke='#c4552d' stroke-width='4' stroke-dasharray='12 8' marker-end='url(#ahr)'/>
 <text x='820' y='1060' text-anchor='middle' font-size='20' fill='#c4552d' font-weight='600'>Broke? Stop, name it, engineer it out</text>
-<rect x='24' y='2638' width='1592' height='720' rx='10' fill='#ffffff' stroke='#d6d2c8' stroke-width='2'/>
-<rect x='24' y='2638' width='1592' height='60' rx='10' fill='#efede8'/>
-<line x1='24' y1='2698' x2='1616' y2='2698' stroke='#e3dfd6' stroke-width='2'/>
-<line x1='24' y1='2758' x2='1616' y2='2758' stroke='#e3dfd6' stroke-width='2'/>
-<line x1='24' y1='2818' x2='1616' y2='2818' stroke='#e3dfd6' stroke-width='2'/>
-<line x1='24' y1='2878' x2='1616' y2='2878' stroke='#e3dfd6' stroke-width='2'/>
-<line x1='24' y1='2938' x2='1616' y2='2938' stroke='#e3dfd6' stroke-width='2'/>
-<line x1='24' y1='2998' x2='1616' y2='2998' stroke='#e3dfd6' stroke-width='2'/>
-<line x1='24' y1='3058' x2='1616' y2='3058' stroke='#e3dfd6' stroke-width='2'/>
-<line x1='24' y1='3118' x2='1616' y2='3118' stroke='#e3dfd6' stroke-width='2'/>
-<line x1='24' y1='3178' x2='1616' y2='3178' stroke='#e3dfd6' stroke-width='2'/>
-<line x1='24' y1='3238' x2='1616' y2='3238' stroke='#e3dfd6' stroke-width='2'/>
-<line x1='24' y1='3298' x2='1616' y2='3298' stroke='#e3dfd6' stroke-width='2'/>
-<text x='42' y='2676' font-size='22' font-weight='700' fill='#3a3a36'>Stop</text>
-<rect x='42' y='2722' width='210' height='12' rx='6' fill='#e2ded5'/>
-<rect x='42' y='2782' width='255' height='12' rx='6' fill='#e2ded5'/>
-<rect x='42' y='2842' width='188' height='12' rx='6' fill='#e2ded5'/>
-<rect x='42' y='2902' width='232' height='12' rx='6' fill='#e2ded5'/>
-<rect x='42' y='2962' width='165' height='12' rx='6' fill='#e2ded5'/>
-<rect x='42' y='3022' width='210' height='12' rx='6' fill='#e2ded5'/>
-<rect x='42' y='3082' width='255' height='12' rx='6' fill='#e2ded5'/>
-<rect x='42' y='3142' width='188' height='12' rx='6' fill='#e2ded5'/>
-<rect x='42' y='3202' width='232' height='12' rx='6' fill='#e2ded5'/>
-<rect x='42' y='3262' width='165' height='12' rx='6' fill='#e2ded5'/>
-<rect x='42' y='3322' width='210' height='12' rx='6' fill='#e2ded5'/>
-<line x1='324' y1='2638' x2='324' y2='3358' stroke='#e3dfd6' stroke-width='2'/>
-<text x='342' y='2676' font-size='22' font-weight='700' fill='#3a3a36'>Start: what it means</text>
-<rect x='342' y='2722' width='264' height='12' rx='6' fill='#e2ded5'/>
-<rect x='342' y='2782' width='336' height='12' rx='6' fill='#e2ded5'/>
-<rect x='342' y='2842' width='408' height='12' rx='6' fill='#e2ded5'/>
-<rect x='342' y='2902' width='300' height='12' rx='6' fill='#e2ded5'/>
-<rect x='342' y='2962' width='372' height='12' rx='6' fill='#e2ded5'/>
-<rect x='342' y='3022' width='264' height='12' rx='6' fill='#e2ded5'/>
-<rect x='342' y='3082' width='336' height='12' rx='6' fill='#e2ded5'/>
-<rect x='342' y='3142' width='408' height='12' rx='6' fill='#e2ded5'/>
-<rect x='342' y='3202' width='300' height='12' rx='6' fill='#e2ded5'/>
-<rect x='342' y='3262' width='372' height='12' rx='6' fill='#e2ded5'/>
-<rect x='342' y='3322' width='264' height='12' rx='6' fill='#e2ded5'/>
-<line x1='804' y1='2638' x2='804' y2='3358' stroke='#e3dfd6' stroke-width='2'/>
-<text x='822' y='2676' font-size='22' font-weight='700' fill='#3a3a36'>Try this</text>
-<rect x='822' y='2722' width='629' height='12' rx='6' fill='#e2ded5'/>
-<rect x='822' y='2782' width='447' height='12' rx='6' fill='#e2ded5'/>
-<rect x='822' y='2842' width='568' height='12' rx='6' fill='#e2ded5'/>
-<rect x='822' y='2902' width='690' height='12' rx='6' fill='#e2ded5'/>
-<rect x='822' y='2962' width='508' height='12' rx='6' fill='#e2ded5'/>
-<rect x='822' y='3022' width='629' height='12' rx='6' fill='#e2ded5'/>
-<rect x='822' y='3082' width='447' height='12' rx='6' fill='#e2ded5'/>
-<rect x='822' y='3142' width='568' height='12' rx='6' fill='#e2ded5'/>
-<rect x='822' y='3202' width='690' height='12' rx='6' fill='#e2ded5'/>
-<rect x='822' y='3262' width='508' height='12' rx='6' fill='#e2ded5'/>
-<rect x='822' y='3322' width='629' height='12' rx='6' fill='#e2ded5'/>
-<rect x='320' y='3480' width='1000' height='96' rx='48' fill='#f3f1ec' stroke='#c4552d' stroke-width='4'/>
-<text x='820' y='3538' text-anchor='middle' font-size='30' font-weight='600' fill='#1d1d1b'>Effort + caring: the edge, for now. Go bigger.</text>
+<rect x='24' y='2638' width='1592' height='848' rx='10' fill='#ffffff' stroke='#d6d2c8' stroke-width='2'/>
+<rect x='25' y='2639' width='1590' height='56' rx='10' fill='#efede8'/>
+<text x='42' y='2674' font-size='20' font-weight='700' fill='#3a3a36'>Stop</text>
+<line x1='324' y1='2638' x2='324' y2='3486' stroke='#e3dfd6' stroke-width='2'/>
+<text x='342' y='2674' font-size='20' font-weight='700' fill='#3a3a36'>Start: what it means</text>
+<line x1='804' y1='2638' x2='804' y2='3486' stroke='#e3dfd6' stroke-width='2'/>
+<text x='822' y='2674' font-size='20' font-weight='700' fill='#3a3a36'>Try this</text>
+<line x1='24' y1='2694' x2='1616' y2='2694' stroke='#e3dfd6' stroke-width='2'/>
+<text x='42' y='2724' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>Hand-coding; reading every</text>
+<text x='42' y='2747' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>line</text>
+<text x='342' y='2724' font-size='17' font-weight='600' fill='#1d1d1b'>Agents write the code. Your job is checking the</text>
+<text x='342' y='2747' font-size='17' font-weight='600' fill='#1d1d1b'>change stays inside what you asked for.</text>
+<text x='822' y='2724' font-size='17' font-weight='400' fill='#2b2b28'>Ask for one feature, then read only the list of changed files. Anything outside the</text>
+<text x='822' y='2747' font-size='17' font-weight='400' fill='#2b2b28'>ask? Reject it.</text>
+<line x1='24' y1='2766' x2='1616' y2='2766' stroke='#e3dfd6' stroke-width='2'/>
+<text x='42' y='2796' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>Asking for what feels safe</text>
+<text x='342' y='2796' font-size='17' font-weight='600' fill='#1d1d1b'>Pick the project you shelved as too big. Agents</text>
+<text x='342' y='2819' font-size='17' font-weight='600' fill='#1d1d1b'>make it feasible now.</text>
+<text x='822' y='2796' font-size='17' font-weight='400' fill='#2b2b28'>List the three projects you&#x27;ve postponed for years. Start the biggest as a weekend</text>
+<text x='822' y='2819' font-size='17' font-weight='400' fill='#2b2b28'>spike.</text>
+<line x1='24' y1='2838' x2='1616' y2='2838' stroke='#e3dfd6' stroke-width='2'/>
+<text x='42' y='2868' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>Babysitting one thread in the</text>
+<text x='42' y='2891' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>IDE</text>
+<text x='342' y='2868' font-size='17' font-weight='600' fill='#1d1d1b'>Hand off whole tasks; let several agents run in</text>
+<text x='342' y='2891' font-size='17' font-weight='600' fill='#1d1d1b'>the background at once.</text>
+<text x='822' y='2868' font-size='17' font-weight='400' fill='#2b2b28'>Queue three independent tasks before dinner (a bug fix, a test suite, a doc). Review</text>
+<text x='822' y='2891' font-size='17' font-weight='400' fill='#2b2b28'>all three in the morning.</text>
+<line x1='24' y1='2910' x2='1616' y2='2910' stroke='#e3dfd6' stroke-width='2'/>
+<text x='42' y='2940' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>Letting agents test by</text>
+<text x='42' y='2963' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>clicking around</text>
+<text x='342' y='2940' font-size='17' font-weight='600' fill='#1d1d1b'>Give agents a fast, scriptable way to check their</text>
+<text x='342' y='2963' font-size='17' font-weight='600' fill='#1d1d1b'>own work.</text>
+<text x='822' y='2940' font-size='17' font-weight='400' fill='#2b2b28'>Before building on an outside API, have an agent build a fake of it from the docs. Add</text>
+<text x='822' y='2963' font-size='17' font-weight='400' fill='#2b2b28'>a CLI command that prints the app&#x27;s state.</text>
+<line x1='24' y1='2982' x2='1616' y2='2982' stroke='#e3dfd6' stroke-width='2'/>
+<text x='42' y='3012' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>Letting one model grade its</text>
+<text x='42' y='3035' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>own work</text>
+<text x='342' y='3012' font-size='17' font-weight='600' fill='#1d1d1b'>A different model reviews; the loop continues</text>
+<text x='342' y='3035' font-size='17' font-weight='600' fill='#1d1d1b'>until it approves.</text>
+<text x='822' y='3012' font-size='17' font-weight='400' fill='#2b2b28'>Builder: a GPT model. Reviewer: Fable 5.2 with your checklist. Nothing merges until the</text>
+<text x='822' y='3035' font-size='17' font-weight='400' fill='#2b2b28'>reviewer says pass.</text>
+<line x1='24' y1='3054' x2='1616' y2='3054' stroke='#e3dfd6' stroke-width='2'/>
+<text x='42' y='3084' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>Patching a bad output and</text>
+<text x='42' y='3107' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>moving on</text>
+<text x='342' y='3084' font-size='17' font-weight='600' fill='#1d1d1b'>Every failure becomes a permanent guardrail.</text>
+<text x='822' y='3084' font-size='17' font-weight='400' fill='#2b2b28'>Agent broke login twice? Add a login test that runs on every change, plus one line in</text>
+<text x='822' y='3107' font-size='17' font-weight='400' fill='#2b2b28'>the agent&#x27;s instructions file.</text>
+<line x1='24' y1='3126' x2='1616' y2='3126' stroke='#e3dfd6' stroke-width='2'/>
+<text x='42' y='3156' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>Putting up with tools you</text>
+<text x='42' y='3179' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>hate</text>
+<text x='342' y='3156' font-size='17' font-weight='600' fill='#1d1d1b'>If a tool annoys you daily, have agents build your</text>
+<text x='342' y='3179' font-size='17' font-weight='600' fill='#1d1d1b'>own version.</text>
+<text x='822' y='3156' font-size='17' font-weight='400' fill='#2b2b28'>Ben did this with his dictation app. Name your three most annoying tools and rebuild</text>
+<text x='822' y='3179' font-size='17' font-weight='400' fill='#2b2b28'>one.</text>
+<line x1='24' y1='3198' x2='1616' y2='3198' stroke='#e3dfd6' stroke-width='2'/>
+<text x='42' y='3228' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>Accepting the model&#x27;s UI and</text>
+<text x='42' y='3251' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>product calls</text>
+<text x='342' y='3228' font-size='17' font-weight='600' fill='#1d1d1b'>Models still lack taste. You define what good</text>
+<text x='342' y='3251' font-size='17' font-weight='600' fill='#1d1d1b'>looks like, up front.</text>
+<text x='822' y='3228' font-size='17' font-weight='400' fill='#2b2b28'>Before any design work, give the agent two or three screenshots you like and one</text>
+<text x='822' y='3251' font-size='17' font-weight='400' fill='#2b2b28'>paragraph on the feel you want.</text>
+<line x1='24' y1='3270' x2='1616' y2='3270' stroke='#e3dfd6' stroke-width='2'/>
+<text x='42' y='3300' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>Judging AI by one-shot demos</text>
+<text x='342' y='3300' font-size='17' font-weight='600' fill='#1d1d1b'>A one-prompt demo is the floor. Quality comes from</text>
+<text x='342' y='3323' font-size='17' font-weight='600' fill='#1d1d1b'>many rounds of expert correction on one product.</text>
+<text x='822' y='3300' font-size='17' font-weight='400' fill='#2b2b28'>Plan for 300 prompts, not one. Each round fixes one specific thing: &quot;spacing too</text>
+<text x='822' y='3323' font-size='17' font-weight='400' fill='#2b2b28'>tight,&quot; &quot;error message unclear.&quot;</text>
+<line x1='24' y1='3342' x2='1616' y2='3342' stroke='#e3dfd6' stroke-width='2'/>
+<text x='42' y='3372' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>Checking work only at your</text>
+<text x='42' y='3395' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>desk</text>
+<text x='342' y='3372' font-size='17' font-weight='600' fill='#1d1d1b'>Make every result reviewable in two minutes, from</text>
+<text x='342' y='3395' font-size='17' font-weight='600' fill='#1d1d1b'>your phone.</text>
+<text x='822' y='3372' font-size='17' font-weight='400' fill='#2b2b28'>Have each agent task end with a preview link, before/after screenshots and a short diff</text>
+<text x='822' y='3395' font-size='17' font-weight='400' fill='#2b2b28'>summary sent to your phone.</text>
+<line x1='24' y1='3414' x2='1616' y2='3414' stroke='#e3dfd6' stroke-width='2'/>
+<text x='42' y='3444' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>Betting on long-range</text>
+<text x='42' y='3467' font-size='17' font-weight='400' fill='#8a877f' text-decoration='line-through'>forecasts</text>
+<text x='342' y='3444' font-size='17' font-weight='600' fill='#1d1d1b'>Guessing the future is a fool&#x27;s game; act on what</text>
+<text x='342' y='3467' font-size='17' font-weight='600' fill='#1d1d1b'>works today.</text>
+<text x='822' y='3444' font-size='17' font-weight='400' fill='#2b2b28'>Plan on a 12-month horizon. Re-test your assumptions every time a new model ships.</text>
+<rect x='320' y='3570' width='1000' height='96' rx='48' fill='#f3f1ec' stroke='#c4552d' stroke-width='4'/>
+<text x='820' y='3628' text-anchor='middle' font-size='30' font-weight='600' fill='#1d1d1b'>Effort + caring: the edge, for now. Go bigger.</text>
 </svg>
