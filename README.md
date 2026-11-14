@@ -6,7 +6,7 @@ This repo is a demo of a workflow, not a summary of a video. It shows how a Clau
 
 The source material happens to be Ben Davis's video ["Software is solved"](https://www.youtube.com/watch?v=qfZhblrmSxM). The subject matter is incidental; the method works for any talk, paper or transcript.
 
-![The whiteboard used to build the page](board.svg)
+![The whiteboard used to build the page](board.svg?v=3)
 
 ## The workflow
 

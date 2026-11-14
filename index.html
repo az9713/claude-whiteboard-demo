@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Software Is Solved: Be More Ambitious (Ben Davis, visual summary)</title>
-<meta name="description" content="An unofficial visual summary of Ben Davis's talk on agentic coding: what is solved, what is not, the verification loop, and concrete behavior changes.">
+<title>Claude Whiteboard Demo: Software Is Solved, Visualized</title>
+<meta name="description" content="A demo of using a Claude whiteboard to visualize, query and organize a talk, then present it as a scrolling page. Source: an unofficial summary of Ben Davis's talk on agentic coding: what is solved, what is not, the verification loop, and concrete behavior changes.">
 <style>
 :root{
   --bg:#f7f5f0; --paper:#ffffff; --ink:#1d1d1b; --muted:#6b6a65; --line:#e3dfd6;
@@ -43,6 +43,9 @@ h1{font:600 clamp(40px,6.5vw,76px)/1.02 var(--serif);letter-spacing:-.02em;margi
 nav.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px}
 nav.toc a{font-size:14px;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--paper);padding:6px 12px;border-radius:999px}
 nav.toc a:hover{border-color:var(--accent);color:var(--accent)}
+
+.made{margin:28px 0 0;padding:14px 18px;border:1px solid var(--accent);border-radius:12px;background:var(--accent-soft);font-size:16px;max-width:760px}
+.made span{font-weight:700;color:var(--accent)}
 
 /* sections */
 section{padding:72px 0;border-bottom:1px solid var(--line)}
@@ -152,10 +155,11 @@ footer p{margin:6px 0}
 
 <header class="hero">
   <div class="wrap">
-    <div class="kicker">Visual summary · Agentic coding</div>
+    <div class="kicker">Claude whiteboard demo</div>
     <h1>Software is solved.<br>Now be more ambitious.</h1>
     <p class="lede"><strong>Writing code is solved.</strong> Ambition, taste and verification are not, and that is where your effort should go.</p>
-    <p class="meta">Based on a talk by Ben Davis, recorded the day Fable 5.2 was released · <a href="https://www.youtube.com/watch?v=qfZhblrmSxM">Watch the original video</a></p>
+    <p class="made"><span>How this page was made:</span> the talk was visualized, queried and organized on a Claude whiteboard, then turned into this page. <a href="#process">See the board and the process ↓</a></p>
+    <p class="meta">Source material: a talk by Ben Davis, recorded the day Fable 5.2 was released · <a href="https://www.youtube.com/watch?v=qfZhblrmSxM">Watch the original video</a></p>
     <nav class="toc" aria-label="Sections">
       <a href="#claim">1 · The claim</a><a href="#shift">2 · The shift</a><a href="#unsolved">3 · Not solved</a>
       <a href="#method">4 · The method</a><a href="#proof">5 · Proof</a><a href="#bets">6 · Bets</a><a href="#actions">7 · What to do</a><a href="#process">8 · How it was made</a>
@@ -323,8 +327,8 @@ footer p{margin:6px 0}
   <p class="sub">Before this page existed, Ben's ideas were laid out on a shared whiteboard, built with Claude from the video transcript. Each confusing spot became a question, and each question changed the board. This page is the cleaned-up result.</p>
   <div class="making">
     <figure class="board">
-      <a href="board.svg" target="_blank" rel="noopener"><img src="board.svg" alt="Map of the whiteboard: sections 1 to 7 laid out as blocks, the five-step loop with its dashed return arrow, the 4a and 4b explainers, proof and bets, and the stop-start table"></a>
-      <figcaption>The final whiteboard, redrawn from its layout; blocks show their titles. <a href="board.svg" target="_blank" rel="noopener">Open full size</a></figcaption>
+      <a href="board.svg?v=3" target="_blank" rel="noopener"><img src="board.svg?v=3" alt="Map of the whiteboard: sections 1 to 7 laid out as blocks, the five-step loop with its dashed return arrow, the 4a and 4b explainers, proof and bets, and the stop-start table"></a>
+      <figcaption>The final whiteboard, redrawn from its layout; blocks show their titles. <a href="board.svg?v=3" target="_blank" rel="noopener">Open full size</a></figcaption>
     </figure>
     <ol class="timeline">
       <li><b>Map the argument</b><span>Transcript → six sections: claim, shift, limits, method loop, proof, bets. The loop is drawn as a loop, because it is one.</span></li>
